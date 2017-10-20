@@ -1,25 +1,24 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef PLATFORM_H
+#define PLATFORM_H
 
 #include <string>
 #include <SFML/Graphics.hpp>
 #include <Box2D\Box2D.h>
 #include "EntityManager.h"
 
-class Player : public EntityManager {
+class Platform : public EntityManager {
 private:
 	sf::RectangleShape shape;
-
 public:
-	Player(float, float);
+	Platform(float, float);
 
 	sf::RectangleShape getShape();
 
 	virtual void update();
 	virtual void draw(sf::RenderWindow& window);
 
-	~Player();
+	~Platform();
 };
 
 
-#endif // !PLAYER_H
+#endif // !PLATFORM_H

@@ -6,21 +6,11 @@
 
 #include "json.hpp"
 #include "Player.h"
+#include "Platform.h"
 
 #define CONFIG_FILE "../data/config.json"
-#define RATIO_PIXEL_METER 64
 
 using json = nlohmann::json;
-
-float pixel2meter(float a)
-{
-	return a / RATIO_PIXEL_METER;
-}
-
-float meter2pixel(float a)
-{
-	return a * RATIO_PIXEL_METER;
-}
 
 int main()
 {
@@ -41,24 +31,12 @@ int main()
 	window.setFramerateLimit(windowConfig["frameRateLimit"]);
 
 	Player player(playerConfig["width"], playerConfig["height"]);
-	player.setB2Body(myWorld->CreateBody(&player.getBodyDef()));
-	player.getBody()->CreateFixture(&player.getFixtureDef());
+	player.addBodyToWorldAndCreateFixture(myWorld);
 
-	b2PolygonShape FloorShape;
-	FloorShape.SetAsBox(windowConfig["width"], 0.f);
-
-	b2FixtureDef FloorFixtureDef;
-	FloorFixtureDef.shape = &FloorShape;
-	FloorFixtureDef.density = 10;
-
-	b2BodyDef theFloor;
-	theFloor.type = b2_staticBody;
-	theFloor.position.Set(0, (float)windowConfig["height"] - 100.f);
-	b2Body* staticBody = myWorld->CreateBody(&theFloor);
-	staticBody->CreateFixture(&FloorFixtureDef);
-
-	sf::RectangleShape Floor(sf::Vector2f(windowConfig["width"], floorConfig["height"]));
-	Floor.setFillColor(sf::Color(100, 56, 37));
+	Platform floor(windowConfig["width"], floorConfig["height"]);
+	floor.getBodyDef().type = b2_staticBody;
+	floor.getBodyDef().position.Set(0, (float)windowConfig["height"] - (float)floorConfig["height"]);
+	floor.addBodyToWorldAndCreateFixture(myWorld);
 
 	float32 timeStep = 1 / 60.0;      //the length of time passed to simulate (seconds)
 	int32 velocityIterations = 8;   //how strongly to correct velocity
@@ -73,22 +51,18 @@ int main()
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
-			if (event.type == sf::Event::KeyPressed)
-			{
-				switch (event.key.code) {
-				case sf::Keyboard::Up:
-					std::cout << "Up\n" << std::flush;
-					break;
-				}
-			}
 		}
-		
-		Floor.setPosition(staticBody->GetPosition().x, staticBody->GetPosition().y);
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+			std::cout << "Right\n" << std::flush;
+			player.getBody()->ApplyForce(b2Vec2(50, 10), player.getBody()->GetWorldCenter(), 0);
+		}
 
 		player.update();
+		floor.update();
 		window.clear();
+		floor.draw(window);
 		player.draw(window);
-		window.draw(Floor);
 		window.display();
 	}
 	delete myWorld;
