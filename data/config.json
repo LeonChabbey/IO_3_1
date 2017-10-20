@@ -6,46 +6,19 @@
 	},
 	"player": {
 		"width": 50,
-		"height": 50
+		"height": 50,
+		"color" : [198,56,127]
 	},
 	"floor": {
-		"height": 40
+		"width": null,
+		"height": 50,
+		"color" : [230,150,96]
 	},
 	"platforms": [
 		{
-			"width": 100,
+			"width": 150,
 			"height": 10,
-			"color": "red"
-		},
-		{
-			"width": 30,
-			"height": 10,
-			"color": "blue"
-		},
-		{
-			"width": 50,
-			"height": 10,
-			"color": "yellow"
-		},
-		{
-			"width": 30,
-			"height": 60,
-			"color": "pink"
-		},
-		{
-			"width": 70,
-			"height": 20,
-			"color": "green"
-		},
-		{
-			"width": 5,
-			"height": 5,
-			"color": "orange"
-		},
-		{
-			"width": 25,
-			"height": 5,
-			"color": "purple"
+			"color" : [145,12,67]
 		}
 	]
 }

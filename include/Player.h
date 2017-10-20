@@ -4,19 +4,21 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include <Box2D\Box2D.h>
-#include "EntityManager.h"
+#include "RectangleEntity.h"
 
-class Player : public EntityManager {
+enum class PlayerState {
+	IDLE,
+	MOVING,
+	JUMPING
+};
+
+class Player : public RectangleEntity {
 private:
-	sf::RectangleShape shape;
-
+	PlayerState state;
 public:
-	Player(float, float);
+	Player(b2World*, float, float, float, float, sf::Color, b2BodyType);
 
-	sf::RectangleShape getShape();
-
-	virtual void update();
-	virtual void draw(sf::RenderWindow& window);
+	void update() override;
 
 	~Player();
 };

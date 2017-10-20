@@ -4,28 +4,29 @@
 #include <SFML\Graphics.hpp>
 #include <Box2D\Box2D.h>
 
-class EntityManager {
+class RectangleEntity {
 protected:
+	sf::RectangleShape shape;
 	b2PolygonShape bodyShape;
 	b2BodyDef bodyDef;
 	b2FixtureDef bodyFixtureDef;
 	b2Body* body;
 	b2Fixture* bodyFixture;
+	b2World* world;
 public:
-	EntityManager(float, float);
-
-	void addBodyToWorldAndCreateFixture(b2World*);
+	RectangleEntity(b2World*, float, float, float, float, sf::Color, b2BodyType);
 
 	b2PolygonShape& getBodyShape();
 	b2BodyDef& getBodyDef();
 	b2FixtureDef& getBodyFixtureDef();
 	b2Body* getBody();
 	b2Fixture* getBodyFixture();
+	sf::RectangleShape getShape();
 
-	virtual void update() = 0;
-	virtual void draw(sf::RenderWindow&) = 0;
+	virtual void update();
+	virtual void draw(sf::RenderWindow&);
 
-	~EntityManager();
+	~RectangleEntity();
 };
 
 #endif // !ENTITY_MANAGER_H

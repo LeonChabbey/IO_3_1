@@ -6,7 +6,8 @@
 
 #include "json.hpp"
 #include "Player.h"
-#include "Platform.h"
+#include "RectangleEntity.h"
+#include "utilities.h"
 
 #define CONFIG_FILE "../data/config.json"
 
@@ -30,13 +31,19 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(windowConfig["width"], windowConfig["height"]), "SFML works!");
 	window.setFramerateLimit(windowConfig["frameRateLimit"]);
 
-	Player player(playerConfig["width"], playerConfig["height"]);
-	player.addBodyToWorldAndCreateFixture(myWorld);
+	const float PLAYER_START_X = 50,
+		PLAYER_START_Y = (float)windowConfig["height"] - (float)floorConfig["height"] - 100.f;
 
-	Platform floor(windowConfig["width"], floorConfig["height"]);
-	floor.getBodyDef().type = b2_staticBody;
-	floor.getBodyDef().position.Set(0, (float)windowConfig["height"] - (float)floorConfig["height"]);
-	floor.addBodyToWorldAndCreateFixture(myWorld);
+	const sf::Color PLAYER_COLOR = convertJsonToSfColor(playerConfig["color"]);
+
+	Player player(myWorld, playerConfig["width"], playerConfig["height"], PLAYER_START_X, PLAYER_START_Y, PLAYER_COLOR, b2_dynamicBody);
+
+	const float FLOOR_POS_X = 0,
+		FLOOR_POS_Y = (float)windowConfig["height"] - (float)floorConfig["height"];
+
+	const sf::Color FLOOR_COLOR = convertJsonToSfColor(floorConfig["color"]);
+
+	RectangleEntity floor(myWorld, (float)windowConfig["width"], floorConfig["height"], FLOOR_POS_X, FLOOR_POS_Y, FLOOR_COLOR, b2_staticBody);
 
 	float32 timeStep = 1 / 60.0;      //the length of time passed to simulate (seconds)
 	int32 velocityIterations = 8;   //how strongly to correct velocity
@@ -46,16 +53,12 @@ int main()
 	while (window.isOpen())
 	{
 		myWorld->Step(timeStep, velocityIterations, positionIterations);
+
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
-		}
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-			std::cout << "Right\n" << std::flush;
-			player.getBody()->ApplyForce(b2Vec2(50, 10), player.getBody()->GetWorldCenter(), 0);
 		}
 
 		player.update();
