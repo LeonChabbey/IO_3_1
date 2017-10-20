@@ -1,0 +1,47 @@
+{
+	"window": {
+		"width": 800,
+		"height": 600
+	},
+	"player": {
+		"width": 50,
+		"height": 50
+	},
+	"platforms": [
+		{
+			"width": 100,
+			"height": 10,
+			"color": "red"
+		},
+		{
+			"width": 30,
+			"height": 10,
+			"color": "blue"
+		},
+		{
+			"width": 50,
+			"height": 10,
+			"color": "yellow"
+		},
+		{
+			"width": 30,
+			"height": 60,
+			"color": "pink"
+		},
+		{
+			"width": 70,
+			"height": 20,
+			"color": "green"
+		},
+		{
+			"width": 5,
+			"height": 5,
+			"color": "orange"
+		},
+		{
+			"width": 25,
+			"height": 5,
+			"color": "purple"
+		}
+	]
+}
