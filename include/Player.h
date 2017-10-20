@@ -7,7 +7,6 @@
 #include "RectangleEntity.h"
 
 enum class PlayerState {
-	IDLE,
 	MOVING,
 	JUMPING
 };
