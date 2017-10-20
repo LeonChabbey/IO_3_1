@@ -12,13 +12,16 @@ private:
 	b2BodyDef bodyDef;
 	b2FixtureDef bodyFixtureDef;
 	b2Body* body;
-	b2Filter* bodyFixture;
+	b2Fixture* bodyFixture;
 public:
 	Player(float, float);
 
 	void setB2Body(b2Body*);
+	void setB2Fixture(b2Fixture*);
 
+	b2FixtureDef getFixtureDef();
 	b2BodyDef getBodyDef();
+	b2Body* getBody();
 
 	void update();
 	void draw(sf::RenderWindow& window);

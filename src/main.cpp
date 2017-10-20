@@ -8,8 +8,19 @@
 #include "Player.h"
 
 #define CONFIG_FILE "../data/config.json"
+#define RATIO_PIXEL_METER 64
 
 using json = nlohmann::json;
+
+float pixel2meter(float a)
+{
+	return a / RATIO_PIXEL_METER;
+}
+
+float meter2pixel(float a)
+{
+	return a * RATIO_PIXEL_METER;
+}
 
 int main()
 {
@@ -22,6 +33,7 @@ int main()
 	i >> config;
 
 	json windowConfig = config["window"];
+	json floorConfig = config["floor"];
 	json playerConfig = config["player"];
 	json platformConfig = config["platforms"];
 
@@ -30,13 +42,23 @@ int main()
 
 	Player player(playerConfig["width"], playerConfig["height"]);
 	player.setB2Body(myWorld->CreateBody(&player.getBodyDef()));
+	player.getBody()->CreateFixture(&player.getFixtureDef());
 
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color(2, 56, 37));
-	b2BodyDef myBodyDef;
-	myBodyDef.type = b2_dynamicBody; //this will be a dynamic body
-	myBodyDef.position.Set(0, 0); //set the starting position
-	b2Body* dynamicBody = myWorld->CreateBody(&myBodyDef);
+	b2PolygonShape FloorShape;
+	FloorShape.SetAsBox(windowConfig["width"], 0.f);
+
+	b2FixtureDef FloorFixtureDef;
+	FloorFixtureDef.shape = &FloorShape;
+	FloorFixtureDef.density = 10;
+
+	b2BodyDef theFloor;
+	theFloor.type = b2_staticBody;
+	theFloor.position.Set(0, (float)windowConfig["height"] - 100.f);
+	b2Body* staticBody = myWorld->CreateBody(&theFloor);
+	staticBody->CreateFixture(&FloorFixtureDef);
+
+	sf::RectangleShape Floor(sf::Vector2f(windowConfig["width"], floorConfig["height"]));
+	Floor.setFillColor(sf::Color(100, 56, 37));
 
 	float32 timeStep = 1 / 60.0;      //the length of time passed to simulate (seconds)
 	int32 velocityIterations = 8;   //how strongly to correct velocity
@@ -61,14 +83,12 @@ int main()
 			}
 		}
 		
-
-		shape.setPosition(dynamicBody->GetPosition().x, dynamicBody->GetPosition().y);
+		Floor.setPosition(staticBody->GetPosition().x, staticBody->GetPosition().y);
 
 		player.update();
 		window.clear();
 		player.draw(window);
-		window.draw(shape);
-		
+		window.draw(Floor);
 		window.display();
 	}
 	delete myWorld;
