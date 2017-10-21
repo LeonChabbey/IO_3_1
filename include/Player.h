@@ -17,6 +17,8 @@ private:
 public:
 	Player(b2World*, float, float, float, float, sf::Color, b2BodyType);
 
+	void playerOnGround();
+	void playerInAir();
 	void update() override;
 
 	~Player();

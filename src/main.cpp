@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "RectangleEntity.h"
 #include "PlatformsManager.h"
+#include "ContactListener.h"
 #include "utilities.h"
 
 #define CONFIG_FILE "../data/config.json"
@@ -21,6 +22,10 @@ int main()
 
 	b2Vec2 gravity(0, 9.8); //normal earth gravity, 9.8 m/s/s straight down!
 	b2World* myWorld = new b2World(gravity);
+
+	// Contact Listener
+	ContactListener myContactListener;
+	myWorld->SetContactListener(&myContactListener);
 
 	// Config json
 	std::ifstream i(std::string(CONFIG_FILE));

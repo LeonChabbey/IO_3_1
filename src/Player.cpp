@@ -11,15 +11,15 @@ Player::Player(b2World* world, float width, float height, float posX, float posY
 	state = PlayerState::MOVING;
 }
 
+void Player::playerOnGround() {
+	state = PlayerState::MOVING;
+}
+
+void Player::playerInAir() {
+	state = PlayerState::JUMPING;
+}
+
 void Player::update() {
-
-
-	float bodyVelocity = body->GetLinearVelocity().y;
-	std::cout << "velocity y: " << bodyVelocity << "\n" << std::flush;
-	if (bodyVelocity != 0)
-		state = PlayerState::JUMPING;
-	else
-		state = PlayerState::MOVING;
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 		body->ApplyForce(b2Vec2(-3, 0), body->GetWorldCenter(), true);
@@ -28,12 +28,12 @@ void Player::update() {
 		body->ApplyForce(b2Vec2(3, 0), body->GetWorldCenter(), true);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && state != PlayerState::JUMPING) {
-		body->ApplyForce(b2Vec2(0, -100), body->GetWorldCenter(), true);
+		body->ApplyForce(b2Vec2(0, -200), body->GetWorldCenter(), true);
 	}
 
 
-	std::cout << "Plat //// body X: " << body->GetPosition().x << " /// body Y: " << body->GetPosition().y << "\n" << std::flush;
-	std::cout << "Plat //// shape X: " << shape.getPosition().x << " /// shape Y: " << shape.getPosition().y << "\n" << std::flush;
+	//std::cout << "Plat //// body X: " << body->GetPosition().x << " /// body Y: " << body->GetPosition().y << "\n" << std::flush;
+	//std::cout << "Plat //// shape X: " << shape.getPosition().x << " /// shape Y: " << shape.getPosition().y << "\n" << std::flush;
 	shape.setPosition(meter2pixel(body->GetPosition().x), meter2pixel(body->GetPosition().y));
 }
 

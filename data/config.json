@@ -24,6 +24,26 @@
 			"width": 400,
 			"height": 10,
 			"color" : [145,12,67]
+		},
+		{
+			"width": 250,
+			"height": 10,
+			"color" : [145,12,67]
+		},
+		{
+			"width": 60,
+			"height": 10,
+			"color" : [145,12,67]
+		},
+		{
+			"width": 600,
+			"height": 10,
+			"color" : [145,12,67]
+		},
+		{
+			"width": 200,
+			"height": 10,
+			"color" : [145,12,67]
 		}
 	]
 }

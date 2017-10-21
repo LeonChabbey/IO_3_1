@@ -17,6 +17,8 @@ RectangleEntity::RectangleEntity(b2World* world, float width, float height, floa
 
 	body = world->CreateBody(&bodyDef);
 	bodyFixture = body->CreateFixture(&bodyFixtureDef);
+
+	body->SetUserData(this);
 }
 
 b2PolygonShape& RectangleEntity::getBodyShape() {
@@ -44,8 +46,8 @@ sf::RectangleShape RectangleEntity::getShape() {
 }
 
 void RectangleEntity::update() {
-	std::cout << "Plat //// body X: " << body->GetPosition().x << " /// body Y: " << body->GetPosition().y << "\n" << std::flush;
-	std::cout << "Plat //// shape X: " << shape.getPosition().x << " /// shape Y: " << shape.getPosition().y << "\n" << std::flush;
+	//std::cout << "Plat //// body X: " << body->GetPosition().x << " /// body Y: " << body->GetPosition().y << "\n" << std::flush;
+	//std::cout << "Plat //// shape X: " << shape.getPosition().x << " /// shape Y: " << shape.getPosition().y << "\n" << std::flush;
 	shape.setPosition(meter2pixel(body->GetPosition().x), meter2pixel(body->GetPosition().y));
 }
 
