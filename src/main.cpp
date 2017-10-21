@@ -2,11 +2,13 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <time.h>
 #include <Box2D/Box2D.h>
 
 #include "json.hpp"
 #include "Player.h"
 #include "RectangleEntity.h"
+#include "PlatformsManager.h"
 #include "utilities.h"
 
 #define CONFIG_FILE "../data/config.json"
@@ -15,6 +17,8 @@ using json = nlohmann::json;
 
 int main()
 {
+	srand(time(NULL));
+
 	b2Vec2 gravity(0, 9.8); //normal earth gravity, 9.8 m/s/s straight down!
 	b2World* myWorld = new b2World(gravity);
 
@@ -26,11 +30,15 @@ int main()
 	json windowConfig = config["window"];
 	json floorConfig = config["floor"];
 	json playerConfig = config["player"];
-	json platformConfig = config["platforms"];
+	json platformsConfig = config["platforms"];
 
 	sf::RenderWindow window(sf::VideoMode(windowConfig["width"], windowConfig["height"]), "SFML works!");
 	window.setFramerateLimit(windowConfig["frameRateLimit"]);
 
+	// Platforms
+	PlatformsManager platformsManager(&window, myWorld, windowConfig, platformsConfig);
+
+	// Player
 	const float PLAYER_START_X = 50,
 		PLAYER_START_Y = (float)windowConfig["height"] - (float)floorConfig["height"] - 100.f;
 
@@ -38,6 +46,7 @@ int main()
 
 	Player player(myWorld, playerConfig["width"], playerConfig["height"], PLAYER_START_X, PLAYER_START_Y, PLAYER_COLOR, b2_dynamicBody);
 
+	// Floor
 	const float FLOOR_POS_X = 0,
 		FLOOR_POS_Y = (float)windowConfig["height"] - (float)floorConfig["height"];
 
@@ -61,11 +70,13 @@ int main()
 				window.close();
 		}
 
+		platformsManager.update();
 		player.update();
 		floor.update();
 		window.clear();
-		floor.draw(window);
 		player.draw(window);
+		floor.draw(window);
+		platformsManager.draw();
 		window.display();
 	}
 	delete myWorld;
