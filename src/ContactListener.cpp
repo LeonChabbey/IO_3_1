@@ -2,27 +2,27 @@
 #include "Player.h"
 #include "RectangleEntity.h"
 #include <iostream>
+#include <utilities.h>
+
 
 void ContactListener::BeginContact(b2Contact* contact) {
 	auto* bodyUserDataA = contact->GetFixtureA()->GetBody()->GetUserData();
-	auto* bodyUserDataB = contact->GetFixtureB()->GetBody()->GetUserData();
-	
-	std::cout << typeid(bodyUserDataA).name() << "\n" << std::flush;
 
-	/*if (bodyUserDataA && dynamic_cast<Player*>(bodyUserDataA))
+	UserDataStruct* structGottenA = (UserDataStruct*)bodyUserDataA;
+
+	std::cout << "begin A:" << structGottenA->className << "\n" << std::flush;
+
+	if(structGottenA->className == "Player")
 		static_cast<Player*>(bodyUserDataA)->playerOnGround();
-
-	if (bodyUserDataB)
-		static_cast<Player*>(bodyUserDataB)->playerOnGround();*/
 }
 
 void ContactListener::EndContact(b2Contact* contact) {
 	auto* bodyUserDataA = contact->GetFixtureA()->GetBody()->GetUserData();
-	auto* bodyUserDataB = contact->GetFixtureB()->GetBody()->GetUserData();
 
-	/*if (bodyUserDataA)
+	UserDataStruct* structGottenA = (UserDataStruct*)bodyUserDataA;
+
+	std::cout << "end A:" << structGottenA->className << "\n" << std::flush;
+
+	if (structGottenA->className == "Player")
 		static_cast<Player*>(bodyUserDataA)->playerInAir();
-
-	if (bodyUserDataB)
-		static_cast<Player*>(bodyUserDataB)->playerInAir();*/
 }

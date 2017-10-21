@@ -10,13 +10,13 @@ PlatformsManager::PlatformsManager(sf::RenderWindow* newWindow, b2World* world, 
 		const float POS_Y = rand() % ((int)windowConfig["height"] - (int)platform["height"]);
 		const sf::Color PLATFORM_COLOR = convertJsonToSfColor(platform["color"]);
 
-		RectangleEntity newPlatform(world, platform["width"], platform["height"], POS_X, POS_Y, PLATFORM_COLOR, b2_staticBody);
+		Platform newPlatform(world, platform["width"], platform["height"], POS_X, POS_Y, PLATFORM_COLOR, b2_staticBody);
 		platforms.push_back(newPlatform);
 	}
 }
 
 void PlatformsManager::update() {
-	for (RectangleEntity& platform : platforms) {
+	for (Platform& platform : platforms) {
 		platform.update();
 	}
 }

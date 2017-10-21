@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <Box2D\Box2D.h>
 #include <vector>
-#include <RectangleEntity.h>
+#include <Platform.h>
 
 #include "json.hpp"
 
@@ -13,7 +13,7 @@ using json = nlohmann::json;
 class PlatformsManager {
 private:
 	sf::RenderWindow* window;
-	std::vector<RectangleEntity> platforms;
+	std::vector<Platform> platforms;
 public:
 	PlatformsManager(sf::RenderWindow*, b2World*, json, json);
 

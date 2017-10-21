@@ -7,7 +7,7 @@
 
 #include "json.hpp"
 #include "Player.h"
-#include "RectangleEntity.h"
+#include "Platform.h"
 #include "PlatformsManager.h"
 #include "ContactListener.h"
 #include "utilities.h"
@@ -57,7 +57,7 @@ int main()
 
 	const sf::Color FLOOR_COLOR = convertJsonToSfColor(floorConfig["color"]);
 
-	RectangleEntity floor(myWorld, (float)windowConfig["width"], floorConfig["height"], FLOOR_POS_X, FLOOR_POS_Y, FLOOR_COLOR, b2_staticBody);
+	Platform floor(myWorld, (float)windowConfig["width"], floorConfig["height"], FLOOR_POS_X, FLOOR_POS_Y, FLOOR_COLOR, b2_staticBody);
 
 	float32 timeStep = 1 / 60.0;      //the length of time passed to simulate (seconds)
 	int32 velocityIterations = 8;   //how strongly to correct velocity

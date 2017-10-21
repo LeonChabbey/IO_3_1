@@ -10,4 +10,4 @@ public:
 	void EndContact(b2Contact*);
 };
 
-#endif // !UTILITIES_H
+#endif // !CONTACT_LISTENER_H

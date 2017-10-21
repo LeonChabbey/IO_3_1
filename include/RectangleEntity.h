@@ -3,6 +3,7 @@
 
 #include <SFML\Graphics.hpp>
 #include <Box2D\Box2D.h>
+#include <utilities.h>
 
 class RectangleEntity {
 protected:
@@ -13,6 +14,7 @@ protected:
 	b2Body* body;
 	b2Fixture* bodyFixture;
 	b2World* world;
+	UserDataStruct* userData;
 public:
 	RectangleEntity(b2World*, float, float, float, float, sf::Color, b2BodyType);
 

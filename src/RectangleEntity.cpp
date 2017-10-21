@@ -1,8 +1,10 @@
 #include "RectangleEntity.h"
 #include <iostream>
-#include <utilities.h>
+#include <string>
 
 RectangleEntity::RectangleEntity(b2World* world, float width, float height, float posX, float posY, sf::Color color, b2BodyType type) {
+	userData = new UserDataStruct;
+
 	shape.setOrigin(sf::Vector2f(width / 2, height / 2));
 	shape.setSize(sf::Vector2f(width, height));
 	shape.setFillColor(color);
@@ -17,8 +19,6 @@ RectangleEntity::RectangleEntity(b2World* world, float width, float height, floa
 
 	body = world->CreateBody(&bodyDef);
 	bodyFixture = body->CreateFixture(&bodyFixtureDef);
-
-	body->SetUserData(this);
 }
 
 b2PolygonShape& RectangleEntity::getBodyShape() {
