@@ -3,8 +3,6 @@
 #include <string>
 
 RectangleEntity::RectangleEntity(b2World* world, float width, float height, float posX, float posY, sf::Color color, b2BodyType type) {
-	userData = new UserDataStruct;
-
 	shape.setOrigin(sf::Vector2f(width / 2, height / 2));
 	shape.setSize(sf::Vector2f(width, height));
 	shape.setFillColor(color);
@@ -55,6 +53,6 @@ void RectangleEntity::draw(sf::RenderWindow & window) {
 	window.draw(shape);
 }
 
-RectangleEntity::~RectangleEntity()
-{
+RectangleEntity::~RectangleEntity() {
+	
 }

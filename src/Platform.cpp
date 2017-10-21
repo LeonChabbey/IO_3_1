@@ -6,6 +6,7 @@
 
 Platform::Platform(b2World* world, float width, float height, float posX, float posY, sf::Color color, b2BodyType type) : RectangleEntity(world, width, height, posX, posY, color, type)
 {
+	userData->instance = this;
 	userData->className = "Platform";
 	body->SetUserData(userData);
 }

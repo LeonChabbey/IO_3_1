@@ -14,7 +14,7 @@ protected:
 	b2Body* body;
 	b2Fixture* bodyFixture;
 	b2World* world;
-	UserDataStruct* userData;
+	UserDataStruct* userData = new UserDataStruct;
 public:
 	RectangleEntity(b2World*, float, float, float, float, sf::Color, b2BodyType);
 

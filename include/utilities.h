@@ -10,6 +10,7 @@ using json = nlohmann::json;
 #define RATIO_PIXEL_METER 64.f
 
 struct UserDataStruct {
+	void* instance;
 	std::string className;
 };
 

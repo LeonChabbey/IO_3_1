@@ -8,6 +8,7 @@
 
 Player::Player(b2World* world, float width, float height, float posX, float posY, sf::Color color, b2BodyType type) : RectangleEntity(world, width, height, posX, posY, color, type)
 {
+	userData->instance = this;
 	userData->className = "Player";
 	body->SetUserData(userData);
 
@@ -26,8 +27,6 @@ void Player::playerInAir() {
 
 void Player::update() {
 
-	std::cout << "Player current state: " << (int)state << "\n" << std::flush;
-
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 		body->ApplyForce(b2Vec2(-3, 0), body->GetWorldCenter(), true);
 	}
@@ -35,9 +34,8 @@ void Player::update() {
 		body->ApplyForce(b2Vec2(3, 0), body->GetWorldCenter(), true);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && state != PlayerState::JUMPING) {
-		body->ApplyForce(b2Vec2(0, -50), body->GetWorldCenter(), true);
+		body->ApplyForce(b2Vec2(0, -120), body->GetWorldCenter(), true);
 	}
-
 
 	//std::cout << "Plat //// body X: " << body->GetPosition().x << " /// body Y: " << body->GetPosition().y << "\n" << std::flush;
 	//std::cout << "Plat //// shape X: " << shape.getPosition().x << " /// shape Y: " << shape.getPosition().y << "\n" << std::flush;
