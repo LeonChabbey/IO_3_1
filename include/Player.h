@@ -13,6 +13,7 @@ enum class PlayerState {
 
 class Player : public RectangleEntity {
 private:
+	b2Fixture* footSensorFixture;
 	PlayerState state;
 public:
 	Player(b2World*, float, float, float, float, sf::Color, b2BodyType);
@@ -20,7 +21,6 @@ public:
 	void playerOnGround();
 	void playerInAir();
 	void update() override;
-
 	~Player();
 };
 

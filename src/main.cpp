@@ -22,7 +22,6 @@ int main()
 
 	b2Vec2 gravity(0, 9.8); //normal earth gravity, 9.8 m/s/s straight down!
 	b2World* myWorld = new b2World(gravity);
-
 	// Contact Listener
 	ContactListener myContactListener;
 	myWorld->SetContactListener(&myContactListener);

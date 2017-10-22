@@ -3,8 +3,8 @@
 #include <string>
 
 RectangleEntity::RectangleEntity(b2World* world, float width, float height, float posX, float posY, sf::Color color, b2BodyType type) {
-	shape.setOrigin(sf::Vector2f(width / 2, height / 2));
 	shape.setSize(sf::Vector2f(width, height));
+	shape.setOrigin(sf::Vector2f(width / 2, height / 2));
 	shape.setFillColor(color);
 
 	bodyDef.position.Set(pixel2meter(posX+width/2), pixel2meter(posY + height / 2));

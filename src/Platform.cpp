@@ -6,9 +6,10 @@
 
 Platform::Platform(b2World* world, float width, float height, float posX, float posY, sf::Color color, b2BodyType type) : RectangleEntity(world, width, height, posX, posY, color, type)
 {
+	// Main fixture userData for collision detection
 	userData->instance = this;
 	userData->className = "Platform";
-	body->SetUserData(userData);
+	bodyFixture->SetUserData(userData);
 }
 
 Platform::~Platform()

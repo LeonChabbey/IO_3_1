@@ -6,8 +6,8 @@
 
 
 void ContactListener::BeginContact(b2Contact* contact) {
-	auto* bodyUserDataA = contact->GetFixtureA()->GetBody()->GetUserData();
-	auto* bodyUserDataB = contact->GetFixtureB()->GetBody()->GetUserData();
+	auto* bodyUserDataA = contact->GetFixtureA()->GetUserData();
+	auto* bodyUserDataB = contact->GetFixtureB()->GetUserData();
 
 	UserDataStruct* structGottenA = (UserDataStruct*)bodyUserDataA;
 	UserDataStruct* structGottenB = (UserDataStruct*)bodyUserDataB;
@@ -15,28 +15,29 @@ void ContactListener::BeginContact(b2Contact* contact) {
 	//std::cout << "begin A:" << structGottenA->className << "\n" << std::flush;
 	//std::cout << "begin B:" << structGottenB->className << "\n" << std::flush;
 
-	if (structGottenA->className == "Player")
+	if (structGottenA->className == "PlayerFoot")
 		static_cast<Player*>(structGottenA->instance)->playerOnGround();
 
 
-	if (structGottenB->className == "Player")
+	if (structGottenB->className == "PlayerFoot")
 		static_cast<Player*>(structGottenB->instance)->playerOnGround();
 }
 
 void ContactListener::EndContact(b2Contact* contact) {
-	auto* bodyUserDataA = contact->GetFixtureA()->GetBody()->GetUserData();
-	auto* bodyUserDataB = contact->GetFixtureB()->GetBody()->GetUserData();
+	auto* bodyUserDataA = contact->GetFixtureA()->GetUserData();
+	auto* bodyUserDataB = contact->GetFixtureB()->GetUserData();
 
 	UserDataStruct* structGottenA = (UserDataStruct*)bodyUserDataA;
 	UserDataStruct* structGottenB = (UserDataStruct*)bodyUserDataB;
 
 	//std::cout << "end A:" << structGottenA->className << "\n" << std::flush;
 	//std::cout << "end B:" << structGottenB->className << "\n" << std::flush;
+	
 
-	if (structGottenA->className == "Player")
+	if (structGottenA->className == "PlayerFoot")
 		static_cast<Player*>(structGottenA->instance)->playerInAir();
 
 
-	if (structGottenB->className == "Player")
+	if (structGottenB->className == "PlayerFoot")
 		static_cast<Player*>(structGottenB->instance)->playerInAir();
 }
